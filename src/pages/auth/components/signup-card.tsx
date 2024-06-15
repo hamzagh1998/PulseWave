@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { FaGoogle } from "react-icons/fa";
 
 import {
   Card,
@@ -12,11 +13,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { ErrorAlert } from "@/components/error-alert";
+import { Separator } from "@/components/ui/separator";
 
 import { signupSchema, signupSchemaType } from "@/schemas/auth.schema";
 
 import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
-import { ErrorAlert } from "@/components/error-alert";
 
 export function SignupCard() {
   const { isPending, error, onFirebaseEmailSignup } = useFirebaseAuth();
@@ -118,6 +120,18 @@ export function SignupCard() {
           </div>
           <Button type="submit" className="w-full" disabled={isPending}>
             Signup
+          </Button>
+          <div className="flex items-center justify-center space-x-2">
+            <Separator orientation="horizontal" className="flex-1" />
+            <p className="text-xs text-muted-foreground">OR CONTINUE WITH</p>
+            <Separator orientation="horizontal" className="flex-1" />
+          </div>
+          <Button
+            variant="secondary"
+            className="w-full text-lg font-bold max-sm:text-md"
+          >
+            <FaGoogle />
+            &ensp;Google
           </Button>
         </form>
       </CardContent>
