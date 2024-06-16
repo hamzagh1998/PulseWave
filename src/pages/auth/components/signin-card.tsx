@@ -23,7 +23,8 @@ import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
 import { AUTH_PATHES } from "@/routes/auth.routes";
 
 export function SigninCard() {
-  const { isPending, error, onFirebaseEmailSignup } = useFirebaseAuth();
+  const { isPending, error, onFirebaseEmailSignup, onFirebaseGoogleSignin } =
+    useFirebaseAuth();
 
   const {
     register,
@@ -44,6 +45,16 @@ export function SigninCard() {
       console.log(email, password);
     } catch (err) {
       console.error("Signin failed", err);
+    }
+  };
+
+  const onGoogleSignup = async () => {
+    try {
+      const data = await onFirebaseGoogleSignin();
+      if (data?.error) return;
+      console.log(data.detail);
+    } catch (err) {
+      console.error("Google signup failed", err);
     }
   };
 
@@ -114,6 +125,7 @@ export function SigninCard() {
         <Button
           variant="secondary"
           className="w-full text-lg font-bold max-sm:text-md"
+          onClick={onGoogleSignup}
         >
           <FaGoogle />
           &ensp;Google

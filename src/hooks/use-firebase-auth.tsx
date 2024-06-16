@@ -2,6 +2,7 @@ import {
   firebaseEmailSignin,
   firebaseEmailSignup,
 } from "@/lib/firebase/auth/auth-with-email";
+import { firebaseGoogleSignin } from "@/lib/firebase/auth/auth-with-provider";
 import { useState } from "react";
 
 export function useFirebaseAuth() {
@@ -35,10 +36,21 @@ export function useFirebaseAuth() {
     return data;
   };
 
+  const onFirebaseGoogleSignin = async () => {
+    setIsPending(true);
+    const data = await firebaseGoogleSignin();
+    if (data.error) {
+      setError(data.detail as string);
+    }
+    setIsPending(false);
+    return data;
+  };
+
   return {
     isPending,
     error,
     onFirebaseEmailSignup,
     onFirebaseEmailSignin,
+    onFirebaseGoogleSignin,
   };
 }

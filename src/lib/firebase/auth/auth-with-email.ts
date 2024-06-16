@@ -9,7 +9,7 @@ type FirebaseAuthErrors = {
   [key: string]: string;
 };
 
-const firebaseAuthenticationAPIErrors: FirebaseAuthErrors = {
+export const firebaseAuthenticationAPIErrors: FirebaseAuthErrors = {
   "Firebase: Error (auth/email-already-in-use).":
     "The provided email is already in use by an existing user!",
   "Firebase: Error (auth/email-already-exists).":
