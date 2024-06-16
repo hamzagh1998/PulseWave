@@ -28,7 +28,7 @@ export type UserData = {
 };
 
 export async function firebaseEmailSignup(email: string, password: string) {
-  const data: { error: boolean; detail: string | null } = {
+  const data: { error: boolean; detail: object | string | null } = {
     error: false,
     detail: null,
   };
@@ -41,9 +41,8 @@ export async function firebaseEmailSignup(email: string, password: string) {
       email,
       password
     );
-    const user = userCredential.user;
     data.error = false;
-    data.detail = await user.getIdToken(); //* accessToken,
+    data.detail = userCredential.user;
   } catch (error) {
     const errorMessage = (error as AuthError).message;
     data.error = true;
@@ -56,15 +55,21 @@ export async function firebaseEmailSignup(email: string, password: string) {
 }
 
 export async function firebaseEmailSignin(email: string, password: string) {
-  const data: { error: boolean; detail: object | string } = {
+  const data: { error: boolean; detail: object | string | null } = {
     error: false,
-    detail: {},
+    detail: null,
   };
 
   try {
     // Signed in
     const auth = getAuth();
-    await signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    data.error = false;
+    data.detail = userCredential.user;
   } catch (error) {
     const errorMessage = (error as AuthError).message;
     data.error = true;

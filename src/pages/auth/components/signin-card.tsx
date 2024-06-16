@@ -23,7 +23,7 @@ import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
 import { AUTH_PATHES } from "@/routes/auth.routes";
 
 export function SigninCard() {
-  const { isPending, error, onFirebaseEmailSignup, onFirebaseGoogleSignin } =
+  const { isPending, error, onFirebaseEmailSignin, onFirebaseGoogleSignin } =
     useFirebaseAuth();
 
   const {
@@ -39,9 +39,8 @@ export function SigninCard() {
     password,
   }) => {
     try {
-      const data = await onFirebaseEmailSignup(email, password);
+      const data = await onFirebaseEmailSignin(email, password);
       if (data?.error) return;
-      //TODO: Register user to db
       console.log(email, password);
     } catch (err) {
       console.error("Signin failed", err);

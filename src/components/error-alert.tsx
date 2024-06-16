@@ -11,7 +11,7 @@ export function ErrorAlert({ title, description }: ErrorAlertProps) {
   return (
     <Alert className="flex justify-start items-center gap-2 bg-red-100">
       <div>
-        <MdError size={36} className="text-destructive" />
+        <MdError size={38} className="text-destructive" />
       </div>
       <div className="">
         <AlertTitle className="text-lg font-bold text-destructive">
