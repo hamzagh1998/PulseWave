@@ -2,12 +2,12 @@ import { MdError } from "react-icons/md";
 
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
-interface Props {
+type ErrorAlertProps = {
   title: string;
   description: string;
-}
+};
 
-export function ErrorAlert({ title, description }: Props) {
+export function ErrorAlert({ title, description }: ErrorAlertProps) {
   return (
     <Alert className="flex justify-start items-center gap-2 bg-red-100">
       <div>

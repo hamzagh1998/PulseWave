@@ -3,9 +3,9 @@ import { Navigate } from "react-router-dom";
 import { useIsAuthenticated } from "@/hooks/use-is-authenticated";
 import { AUTH_PATHES } from "@/routes/auth.routes";
 
-interface PrivateRouteProps {
+type PrivateRouteProps = {
   children: React.ReactNode;
-}
+};
 
 export function PrivateRouteWrapper({ children }: PrivateRouteProps) {
   const isAuthenticated = useIsAuthenticated();

@@ -1,3 +1,5 @@
+import { SigninCard } from "./components/signin-card";
+
 export function SigninPage() {
-  return <div>SigninPage</div>;
+  return <SigninCard />;
 }

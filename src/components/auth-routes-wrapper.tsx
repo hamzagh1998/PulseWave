@@ -2,9 +2,9 @@ import { Navigate } from "react-router-dom";
 
 import { useIsAuthenticated } from "@/hooks/use-is-authenticated";
 
-interface AuthRouteProps {
+type AuthRouteProps = {
   children: React.ReactNode;
-}
+};
 
 export function AuthRouteWrapper({ children }: AuthRouteProps) {
   const isAuthenticated = useIsAuthenticated();

@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -17,26 +16,24 @@ import { Button } from "@/components/ui/button";
 import { ErrorAlert } from "@/components/error-alert";
 import { Separator } from "@/components/ui/separator";
 
-import { signupSchema, signupSchemaType } from "@/schemas/auth.schema";
+import { signinSchema, signinSchemaType } from "@/schemas/auth.schema";
 
 import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
 
 import { AUTH_PATHES } from "@/routes/auth.routes";
 
-export function SignupCard() {
+export function SigninCard() {
   const { isPending, error, onFirebaseEmailSignup } = useFirebaseAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<signupSchemaType>({
-    resolver: yupResolver(signupSchema),
+  } = useForm<signinSchemaType>({
+    resolver: yupResolver(signinSchema),
   });
 
-  const onSubmit: SubmitHandler<signupSchemaType> = async ({
-    firstName,
-    lastName,
+  const onSubmit: SubmitHandler<signinSchemaType> = async ({
     email,
     password,
   }) => {
@@ -44,9 +41,9 @@ export function SignupCard() {
       const data = await onFirebaseEmailSignup(email, password);
       if (data?.error) return;
       //TODO: Register user to db
-      console.log(firstName, lastName, email, password);
+      console.log(email, password);
     } catch (err) {
-      console.error("Signup failed", err);
+      console.error("Signin failed", err);
     }
   };
 
@@ -55,10 +52,10 @@ export function SignupCard() {
       <CardHeader>
         <CardTitle className="text-2xl">Sign Up</CardTitle>
         <CardDescription>
-          Already have an account?&ensp;
+          Don't have an account?&ensp;
           <Link
             className="text-accent-foreground underline"
-            to={"/" + AUTH_PATHES.SIGNIN}
+            to={"/" + AUTH_PATHES.SIGNUP}
           >
             Sign In
           </Link>
@@ -68,36 +65,7 @@ export function SignupCard() {
         {error && <ErrorAlert title="Error" description={error} />}
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid w-full items-center gap-4">
-            <div className="flex justify-between items-start gap-2">
-              <div className="w-full">
-                <Label htmlFor="firstName">First name</Label>
-                <Input
-                  className={errors.firstName && "border-destructive"}
-                  id="firstName"
-                  placeholder="Your first name"
-                  {...register("firstName")}
-                />
-                {errors.firstName && (
-                  <p className="text-destructive text-sm">
-                    {errors.firstName.message}
-                  </p>
-                )}
-              </div>
-              <div className="w-full">
-                <Label htmlFor="lastName">Last name</Label>
-                <Input
-                  className={errors.lastName && "border-destructive"}
-                  id="lastName"
-                  placeholder="Your last name"
-                  {...register("lastName")}
-                />
-                {errors.lastName && (
-                  <p className="text-destructive text-sm">
-                    {errors.lastName.message}
-                  </p>
-                )}
-              </div>
-            </div>
+            <div className="flex justify-between items-start gap-2"></div>
             <div className="w-full">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -128,6 +96,12 @@ export function SignupCard() {
               )}
             </div>
           </div>
+          <Link
+            className="text-accent-foreground underline text-xs"
+            to={"/" + AUTH_PATHES.FORGET_PWD}
+          >
+            Forgot your password ?
+          </Link>
           <Button type="submit" className="w-full" disabled={isPending}>
             Signup
           </Button>
@@ -145,24 +119,6 @@ export function SignupCard() {
           &ensp;Google
         </Button>
       </CardContent>
-      <CardFooter>
-        <p className="mt-6 text-xs">
-          By continuing, you agree to PulseChat&ensp;
-          <a
-            href="#"
-            className="text-skin-accent text-sm cursor-pointer font-bold"
-          >
-            Terms of Service
-          </a>
-          &ensp;and&ensp;
-          <a
-            href="#"
-            className="text-skin-accent text-sm cursor-pointer font-bold"
-          >
-            Privacy Policy.
-          </a>
-        </p>
-      </CardFooter>
     </Card>
   );
 }

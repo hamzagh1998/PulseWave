@@ -22,10 +22,10 @@ const firebaseAuthenticationAPIErrors: FirebaseAuthErrors = {
   "Firebase: Error (auth/internal-error).": "Unexpected error!",
 };
 
-export interface UserData {
+export type UserData = {
   accessToken: string;
   email: string;
-}
+};
 
 export async function firebaseEmailSignup(email: string, password: string) {
   const data: { error: boolean; detail: string | null } = {

@@ -7,6 +7,7 @@ import { RootLayout } from "@/pages/auth/_root-layout";
 export const AUTH_PATHES = {
   SIGNUP: "signup",
   SIGNIN: "signin",
+  FORGET_PWD: "forget-password",
 };
 
 export const authRoutes: RouteObject[] = [
