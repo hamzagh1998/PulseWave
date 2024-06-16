@@ -3,6 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
+
 import {
   Card,
   CardContent,
@@ -18,8 +20,6 @@ import { ErrorAlert } from "@/components/error-alert";
 import { Separator } from "@/components/ui/separator";
 
 import { signupSchema, signupSchemaType } from "@/schemas/auth.schema";
-
-import { useFirebaseAuth } from "@/hooks/use-firebase-auth";
 
 import { AUTH_PATHES } from "@/routes/auth.routes";
 
